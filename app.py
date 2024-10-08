@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
+from pymongo import MongoClient
 from bson.json_util import dumps
 from bson.objectid import ObjectId
 from flasgger import Swagger
-# from dotenv import load_env
+from dotenv import load_dotenv
+from pprint import pprint
 import os
 
+load_dotenv()
 
 app = Flask(__name__)
 swagger = Swagger(app)
@@ -13,7 +16,11 @@ swagger = Swagger(app)
 #Mongo db config 
 # app.config['MONGO_URI'] = os.getenv('MONGO_URI', "mongodb://localhost:27017/book_db")
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
-mongo = PyMongo(app)
+# mongo = PyMongo(app)
+mongo_client = MongoClient(os.getenv('MONGO_URI'))
+# Initialize PyMongo
+db = mongo_client['book_db']
+
 
 # Health Check Endpoint
 @app.route('/', methods=['GET'])
@@ -32,7 +39,7 @@ def create_book():
     if not title or not author:
         return jsonify({"error": "Title and Author are required"}), 400
 
-    book_id = mongo.db.books.insert_one({
+    book_id = db.books.insert_one({
         "title": title,
         "author": author,
         "published_date": published_date
@@ -43,13 +50,14 @@ def create_book():
 # Get all books
 @app.route('/books', methods=['GET'])
 def get_books():
-    books = mongo.db.books.find()
+    # print(mongo.db)
+    books = db.books.find()
     return dumps(books), 200
 
 # Get a single book
 @app.route('/books/<book_id>', methods=['GET'])
 def get_book(book_id):
-    book = mongo.db.books.find_one({"_id": ObjectId(book_id)})
+    book = db.books.find_one({"_id": ObjectId(book_id)})
     if not book:
         return jsonify({"error": "Book not found"}), 404
     return dumps(book), 200
@@ -58,7 +66,7 @@ def get_book(book_id):
 @app.route('/books/<book_id>', methods=['PUT'])
 def update_book(book_id):
     data = request.json
-    mongo.db.books.update_one(
+    db.books.update_one(
         {"_id": ObjectId(book_id)},
         {"$set": data}
     )
@@ -67,7 +75,7 @@ def update_book(book_id):
 # Delete a book
 @app.route('/books/<book_id>', methods=['DELETE'])
 def delete_book(book_id):
-    result = mongo.db.books.delete_one({"_id": ObjectId(book_id)})
+    result = db.books.delete_one({"_id": ObjectId(book_id)})
     if result.deleted_count == 0:
         return jsonify({"error": "Book not found"}), 404
     return jsonify({"message": "Book deleted"}), 200
