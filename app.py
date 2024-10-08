@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from bson.json_util import dumps
 from bson.objectid import ObjectId
@@ -13,10 +12,8 @@ load_dotenv()
 app = Flask(__name__)
 swagger = Swagger(app)
 
-#Mongo db config 
-# app.config['MONGO_URI'] = os.getenv('MONGO_URI', "mongodb://localhost:27017/book_db")
+# Mongo db config 
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
-# mongo = PyMongo(app)
 mongo_client = MongoClient(os.getenv('MONGO_URI'))
 # Initialize PyMongo
 db = mongo_client['book_db']
