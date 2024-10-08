@@ -11,10 +11,12 @@ app = Flask(__name__)
 swagger = Swagger(app)
 
 #Mongo db config 
-app.config['MONGO_URI'] = os.getenv('MONGO_URI', "mongodb://localhost:27017/book_db")
+# app.config['MONGO_URI'] = os.getenv('MONGO_URI', "mongodb://localhost:27017/book_db")
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 
 # Health Check Endpoint
+@app.route('/', methods=['GET'])
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({"status": "OK"}), 200
