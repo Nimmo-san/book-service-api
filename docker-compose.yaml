@@ -3,13 +3,11 @@ services:
   book-service:
     build: .
     ports:
-      - "5000:5000"
+      - "5000:5000"  # Exposes the Flask app on localhost:5000
     environment:
-      MONGO_URI: "mongodb://mongo:27017/book_db"
-    depends_on:
-      - mongo
+      - MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/<database-name>?retryWrites=true&w=majority
 
-  mongo:
-    image: mongo:4.4
-    ports:
-      - "27017:27017"
+  # mongo:
+  #   image: mongo:4.4
+  #   ports:
+  #     - "27017:27017"
