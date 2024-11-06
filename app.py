@@ -4,7 +4,6 @@ from bson.json_util import dumps
 from bson.objectid import ObjectId
 from flasgger import Swagger
 from dotenv import load_dotenv
-from pprint import pprint
 import os
 
 load_dotenv()
