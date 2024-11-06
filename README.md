@@ -15,7 +15,7 @@ A simple Flask API that allows users to manage books, including creating, readin
 - **Flask**: Python-based micro web framework for building the API.
 - **MongoDB Atlas**: Cloud-based NoSQL database for storing book records.
 - **PyMongo**: Python library for interacting with MongoDB.
-- **MongoClient**: For managing the MongoDB connection.
+- **MongoClient**: For managing the MongoDB connection if necessary
 - **Docker**: Containerization for easy deployment and development.
 
 ---
@@ -33,5 +33,5 @@ A simple Flask API that allows users to manage books, including creating, readin
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/<yourusername>/book-management-api.git
-   cd book-management-api
+   git clone https://github.com/Nimmo-san/book-service-api.git
+   cd book-service-api
