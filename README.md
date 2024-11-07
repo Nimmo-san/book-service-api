@@ -7,6 +7,9 @@ A simple Flask API that allows users to manage books, including creating, readin
 - [Technologies Used](#technologies-used)
 - [Setup & Installation](#setup--installation)
 - [Running the Project with Docker](#running-the-project-with-docker)
+- [API Endpoints](#api-endpoints)
+- [Testing the API](#testing-the-api)
+- [Contributing](#contributing)
 
 ## Features
 
@@ -105,14 +108,14 @@ A simple Flask API that allows users to manage books, including creating, readin
 
    Response:
    ```json
-      [
-         {
-            "_id": "1a2b3c4d5e6f",
-            "title": "The Great Gatsby",
-            "author": "F. Scott Fitzgerald",
-            "published_date": "1925"
-         }
-      ]
+   [
+      {
+         "_id": "1a2b3c4d5e6f",
+         "title": "The Great Gatsby",
+         "author": "F. Scott Fitzgerald",
+         "published_date": "1925"
+      }
+   ]
    ```
 3. Get a Book by ID URL: ```/books/{book_id}```
 
