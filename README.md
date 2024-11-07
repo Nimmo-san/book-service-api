@@ -2,6 +2,12 @@
 
 A simple Flask API that allows users to manage books, including creating, reading, updating, and deleting (CRUD) book records. The API uses MongoDB Atlas for the database and is containerized using Docker.
 
+## Table of Contents
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Setup & Installation](#setup--installation)
+- [Running the Project with Docker](#running-the-project-with-docker)
+
 ## Features
 
 - Create a new book
@@ -20,7 +26,7 @@ A simple Flask API that allows users to manage books, including creating, readin
 
 ---
 
-## Setup and Installation
+## Setup & Installation
 
 ### Prerequisites
 
@@ -62,7 +68,7 @@ A simple Flask API that allows users to manage books, including creating, readin
 
    The API will be accessible at http://localhost:5000.
 
-### Running the Project with Docker
+## Running the Project with Docker
 
    If you prefer to run the project inside Docker containers:
 
@@ -73,7 +79,7 @@ A simple Flask API that allows users to manage books, including creating, readin
    ```
    The app should now be accessible at http://localhost:5000.
 
-### API Endpoints
+## API Endpoints
 
 1. Create a New Book URL: ```/books```
    
@@ -149,11 +155,11 @@ A simple Flask API that allows users to manage books, including creating, readin
       "message": "Book deleted"
    }
    ```
-### Testing the API
+## Testing the API
 
    You can use **Postman** or **curl** to test the API endpoints:
 
-### Contributing
+## Contributing
 
    Contributions are welcome! If you'd like to contribute:
 
