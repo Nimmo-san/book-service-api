@@ -16,9 +16,9 @@ app = Flask(__name__)
 swagger = Swagger(app)
 app.logger.info("Starting the Flask app")
 
-# Mongo db config 
-app.config['MONGO_URI'] = os.getenv('MONGO_URI')
-mongo_client = MongoClient(os.getenv('MONGO_URI'))
+# Mongo db config
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+mongo_client = MongoClient(os.getenv("MONGO_URI"))
 # Initialize PyMongo
 db = mongo_client["book_db"]
 
@@ -54,23 +54,23 @@ def create_book():
         print(f"Error creating a book: {e}")
         return jsonify({"error": "An error occurred while creating books"}), 500
 
+
 # Get all books
 @app.route("/books", methods=["GET"])
 def get_books():
     try:
         app.logger.info("\nFetching collection names...\n")
         print("Connected to MongoDB:", db.list_collection_names())
-        
+
         books = db.books.find()
         books_list = list(books)
-        
+
         app.logger.info("\nReturning the list of books\n")
         return dumps(books_list), 200
     except Exception as e:
         app.logger.error(f"\nUnexpected error occurred: {e}\n")
         print(f"Error fetching books: {e}")
         return jsonify({"error": "An error occurred while fetching books"}), 500
-
 
 
 # Get a single book
@@ -88,6 +88,7 @@ def get_book(book_id):
         print(f"Error occurred while getting a book with id {book_id}: {e}")
         return jsonify({"error": "An error occurred while updating a book"}), 500
 
+
 # Update a book
 @app.route("/books/<book_id>", methods=["PUT"])
 def update_book(book_id):
@@ -102,6 +103,7 @@ def update_book(book_id):
         print(f"Error occurred while updating a book: {e}")
         return jsonify({"error": "An error occurred while updating a book"}), 500
 
+
 # Delete a book
 @app.route("/books/<book_id>", methods=["DELETE"])
 def delete_book(book_id):
@@ -111,13 +113,14 @@ def delete_book(book_id):
         if result.deleted_count == 0:
             app.logger.warning(f"\nBook with id {book_id} does not exist\n")
             return jsonify({"error": "Book not found"}), 404
-        
+
         app.logger.warning(f"\nBook with id {book_id} successfully deleted\n")
         return jsonify({"message": "Book deleted"}), 200
     except Exception as e:
         app.logger.error(f"\nUnexpected error occurred: {e}\n")
         print(f"Error deleting book: {e}")
         return jsonify({"error": "An error occurred while fetching books"}), 500
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
